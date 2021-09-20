@@ -1,7 +1,7 @@
 from flask import Flask,request,render_template
 from flask_cors import cross_origin
 import sklearn
-import pickle
+import pickle,jsonify
 import pandas as pd
 
 
@@ -13,7 +13,6 @@ model=pickle.load(open("flight_rf.pkl","rb"))
 @cross_origin()
 def predict():
     if request.method=="POST":
-        ans={}
         #date_of_Journey
         data_dep=request.form["Dep_time"]
         Journey_day=int(pd.to_datetime(data_dep,format="%Y-%m-%dT%H:%M").day)
@@ -321,16 +320,12 @@ def predict():
             d_Hyderabad,
             d_Kolkata,
             d_New_Delhi
-
         ]])
-
         output=round(prediction[0],2)
-        ans['price']=format(output)
-
-        return ans
+        return jsonify({'response':format(output)})
 
 if __name__=="__main__": 
-    app.run(debug=True)
+    app.run(host="0.0.0.0")
     
 
 
