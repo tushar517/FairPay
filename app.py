@@ -321,8 +321,9 @@ def predict():
             d_Kolkata,
             d_New_Delhi
         ]])
-        output=round(prediction[0],2)
-        return jsonify({'response':format(output)})
+        return render_template('home.html',prediction_text="Your fligth price is Rs {}".format(output))
+    
+    return render_template("home.html")
 
 if __name__=="__main__": 
     app.run(host="0.0.0.0")
