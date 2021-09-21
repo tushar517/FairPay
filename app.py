@@ -8,10 +8,7 @@ import pandas as pd
 app=Flask(__name__)
 model=pickle.load(open("flight_rf.pkl","rb"))
 
-@app.route("/")
-@cross_origin()
-def home():
-    return render_template("home.html")
+
 @app.route("/predict",methods=["GET","POST"])
 @cross_origin()
 def predict():
@@ -324,9 +321,8 @@ def predict():
             d_Kolkata,
             d_New_Delhi
         ]])
-        return render_template('home.html',prediction_text="Your fligth price is Rs {}".format(output))
-    
-    return render_template("home.html")
+        output=round(prediction[0],2)
+    return jsonify({'response':format(output)})
 
 if __name__=="__main__": 
     app.run(host="0.0.0.0")
