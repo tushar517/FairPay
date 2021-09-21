@@ -9,7 +9,7 @@ app=Flask(__name__)
 model=pickle.load(open("flight_rf.pkl","rb"))
 
 
-@app.route("/predict",methods=["GET","POST"])
+@app.route("/predict",methods=["POST"])
 @cross_origin()
 def predict():
     if request.method=="POST":
