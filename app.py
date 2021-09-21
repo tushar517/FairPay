@@ -8,7 +8,10 @@ import pandas as pd
 app=Flask(__name__)
 model=pickle.load(open("flight_rf.pkl","rb"))
 
-
+@app.route("/")
+@cross_origin()
+def home():
+    return render_template("home.html")
 @app.route("/predict",methods=["GET","POST"])
 @cross_origin()
 def predict():
